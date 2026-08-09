@@ -1,4 +1,4 @@
-
+using CommandAPI.Data;
 namespace CommandAPI
 {
     public class Startup
@@ -12,6 +12,8 @@ namespace CommandAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            // DI services
+            services.AddScoped<ICommandAPIRepo, MockCommandAPIRepo>();
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

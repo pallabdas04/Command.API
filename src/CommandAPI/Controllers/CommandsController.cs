@@ -1,7 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using CommandAPI.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CommandAPI.Controllers
@@ -10,18 +7,29 @@ namespace CommandAPI.Controllers
     [Route("api/[controller]")]
     public class CommandsController : ControllerBase
     {
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        private readonly ICommandAPIRepo _repository;
+
+        public CommandsController(ICommandAPIRepo repository)
         {
-            return new string[] {"This", "is", "hard", "coded"};
+            _repository = repository;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCommandById(int Id)
+        {
+            var commandItem = _repository.GetCommandById(Id);
+            if (commandItem is null)
+                return NotFound();
+            
+            return Ok(commandItem);
         }
 
         [HttpGet]
-        [Route("show-results")]
-        public async Task<IActionResult> GetResultAsync()
+        [Route("all-commands")]
+        public async Task<IActionResult> GetAllCommands()
         {
-            string[] returnVal = new string[] {"This", "is", "hard", "coded"};
-            return Ok(returnVal);
+            var commandItems = _repository.GetAllCommands();
+            return Ok(commandItems);
         }
     }
 }
