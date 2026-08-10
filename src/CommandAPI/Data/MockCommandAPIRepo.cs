@@ -4,17 +4,17 @@ namespace CommandAPI.Data
 {
     public class MockCommandAPIRepo : ICommandAPIRepo
     {
-        public void CreateCommand(Command cmd)
+        public async Task CreateCommand(Command cmd)
         {
             throw new NotImplementedException();
         }
 
-        public void DeleteCommand(Command cmd)
+        public async Task DeleteCommand(Command cmd)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Command> GetAllCommands()
+        public async Task<IEnumerable<Command>> GetAllCommands()
         {
             var commands = new List<Command>
             {
@@ -43,7 +43,7 @@ namespace CommandAPI.Data
             return commands;
         }
 
-        public Command GetCommandById(int id)
+        public async Task<Command> GetCommandById(int id)
         {
             return new Command
             {
@@ -54,12 +54,12 @@ namespace CommandAPI.Data
             };
         }
 
-        public bool SaveChanges()
+        public Task<bool> SaveChanges()
         {
             throw new NotImplementedException();
         }
 
-        public void UpdateCommand(Command cmd)
+        public Task UpdateCommand(Command cmd)
         {
             throw new NotImplementedException();
         }

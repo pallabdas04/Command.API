@@ -1,4 +1,6 @@
 using CommandAPI.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace CommandAPI
 {
     public class Startup
@@ -12,8 +14,13 @@ namespace CommandAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            // EF Core
+            services.AddDbContext<CommandContext>(opt => opt.UseNpgsql(
+                Configuration.GetConnectionString("PostgreSqlConnection")
+            ));
             // DI services
-            services.AddScoped<ICommandAPIRepo, MockCommandAPIRepo>();
+            //services.AddScoped<ICommandAPIRepo, MockCommandAPIRepo>();
+            services.AddScoped<ICommandAPIRepo, SqlCommandAPIRepo>();
         }
         
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
