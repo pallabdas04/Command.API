@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
+
 namespace CommandAPI.Models
 {
     [ExcludeFromCodeCoverage]
